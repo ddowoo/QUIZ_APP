@@ -9,7 +9,7 @@ type Props = {
   onPress: () => void;
 };
 
-const RowRadio = ({
+const RowRadioButton = ({
   textPos = 'right',
   value,
   text,
@@ -30,7 +30,7 @@ const RowRadio = ({
   );
 };
 
-export default RowRadio;
+export default RowRadioButton;
 
 const styles = StyleSheet.create({
   rowBtnBox: {

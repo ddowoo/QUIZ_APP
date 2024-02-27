@@ -14,9 +14,7 @@ import {useRecoilState, useRecoilValue, useSetRecoilState} from 'recoil';
 import pickQuizConfigState from '../../../recoil/quizes/atom';
 import {RadioButton} from 'react-native-paper';
 import {useState} from 'react';
-import {RowRadio} from '../../atoms/btn';
-
-const {width: screenWidth} = Dimensions.get('screen');
+import {FullWidthButton, RowRadioButton} from '../../atoms/btn';
 
 type Props = StackScreenProps<RootStackParams, 'home'>;
 
@@ -48,7 +46,7 @@ const Home = ({navigation}: Props) => {
         <View style={styles.selectBox}>
           {QUIZ_COUNT_LIST.map(count => {
             return (
-              <RowRadio
+              <RowRadioButton
                 key={`quiz_count_${count}`}
                 text={`${count} 개`}
                 isChecked={pickQuizCount === count}
@@ -62,7 +60,7 @@ const Home = ({navigation}: Props) => {
         <View style={styles.selectBox}>
           {QUIZ_LEVEL_LIST.map(quizLevel => {
             return (
-              <RowRadio
+              <RowRadioButton
                 key={`quiz_count_${quizLevel}`}
                 text={quizLevel}
                 isChecked={pickQuizLevel === quizLevel}
@@ -73,9 +71,7 @@ const Home = ({navigation}: Props) => {
           })}
         </View>
       </View>
-      <TouchableOpacity style={styles.startBtn} onPress={onPressStartQuizBtn}>
-        <Text style={styles.startBtnText}>퀴즈 풀기</Text>
-      </TouchableOpacity>
+      <FullWidthButton text="퀴즈풀기" onPress={onPressStartQuizBtn} />
     </SafeArea>
   );
 };
@@ -97,18 +93,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
-  },
-  startBtn: {
-    width: screenWidth - 40,
-    height: 40,
-    borderRadius: 10,
-    alignSelf: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#19C084',
-    color: '#fff',
-  },
-  startBtnText: {
-    color: '#fff',
   },
 });
