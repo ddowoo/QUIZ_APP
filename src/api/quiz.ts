@@ -2,7 +2,7 @@ import {quizAxios} from './axiosInstance';
 
 type GetQuizListReturn = Question[];
 
-export const getQuizListFetch = async (
+export const getQuestionListFetch = async (
   quizCount: QuizCount,
   quizLevel: QuizLevel,
 ): Promise<GetQuizListReturn> => {
