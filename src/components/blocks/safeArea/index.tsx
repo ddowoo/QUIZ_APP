@@ -1,6 +1,6 @@
 import {ReactNode} from 'react';
-import {StatusBar, StyleSheet, View, ViewProps} from 'react-native';
-import {SafeAreaView, SafeAreaViewProps} from 'react-native-safe-area-context';
+import {StatusBar, StyleSheet} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 type SafeBgProps = {
   children: ReactNode;

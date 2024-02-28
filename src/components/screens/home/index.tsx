@@ -1,20 +1,11 @@
-import {
-  Button,
-  Pressable,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Dimensions,
-} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import SafeArea from '../../blocks/safeArea';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParams} from '../../../navigations/rootScreens';
-import {useRecoilState, useRecoilValue, useSetRecoilState} from 'recoil';
-import pickQuizConfigState from '../../../recoil/quizes/atom';
-import {RadioButton} from 'react-native-paper';
+import {useSetRecoilState} from 'recoil';
 import {useState} from 'react';
 import {FullWidthButton, RowRadioButton} from '../../atoms/btn';
+import {pickQuizConfigState} from '../../../recoil/quiz/atom';
 
 type Props = StackScreenProps<RootStackParams, 'home'>;
 
