@@ -3,9 +3,11 @@ import SafeArea from '../../blocks/safeArea';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParams} from '../../../navigations/rootScreens';
 import {useSetRecoilState} from 'recoil';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {FullWidthButton, RowRadioButton} from '../../atoms/btn';
 import {pickQuizConfigState} from '../../../recoil/quiz/atom';
+import {useFocusEffect} from '@react-navigation/native';
+import {deviceDB} from '../../../utils/deviceDB';
 
 type Props = StackScreenProps<RootStackParams, 'home'>;
 
@@ -25,9 +27,14 @@ const Home = ({navigation}: Props) => {
   const onPressQuizLevel = (level: QuizLevel) => {
     setPickQuizLevel(level);
   };
+
   const onPressStartQuizBtn = () => {
     setQuizConfig({count: pickQuizCount, quizLevel: pickQuizLevel});
     navigation.navigate('quiz');
+  };
+
+  const onPressIncorrectNote = () => {
+    navigation.navigate('incorrectNote');
   };
 
   return (
@@ -62,6 +69,12 @@ const Home = ({navigation}: Props) => {
           })}
         </View>
       </View>
+      <FullWidthButton
+        text="오답노트"
+        type="ghost"
+        onPress={onPressIncorrectNote}
+        mb={10}
+      />
       <FullWidthButton text="퀴즈풀기" onPress={onPressStartQuizBtn} />
     </SafeArea>
   );

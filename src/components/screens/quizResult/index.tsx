@@ -10,8 +10,12 @@ import {
   pickQuizConfigState,
   raceSecondsState,
 } from '../../../recoil/quiz/atom';
-import {quizQuestionListState} from '../../../recoil/quiz/selector';
+import {
+  QuestionItem,
+  quizQuestionListState,
+} from '../../../recoil/quiz/selector';
 import {styles} from './style';
+import {deviceDB} from '../../../utils/deviceDB';
 
 const {width: screenWidth} = Dimensions.get('window');
 
@@ -59,7 +63,29 @@ const QuizResult = ({navigation}: Props) => {
     resetRaceSeconds();
   };
 
-  const onPressGoBack = () => {
+  const onPressGoBack = async () => {
+    const dbIncorrectQuiz = await deviceDB.get('incorrectQuiz');
+    const accIncorrectQuizList: QuestionItem[] = dbIncorrectQuiz
+      ? JSON.parse(dbIncorrectQuiz)
+      : [];
+
+    console.log('accIncorrectQuizList');
+    console.log(accIncorrectQuizList);
+
+    const nowIncorrectQuizList = quizQuestionList.filter(
+      ({correct_answer}, index) => {
+        return correct_answer !== userPickAnswerList[index];
+      },
+    );
+    console.log('nowIncorrectQuizList');
+    console.log(nowIncorrectQuizList);
+    accIncorrectQuizList.push(...nowIncorrectQuizList);
+
+    console.log('acc');
+    console.log(accIncorrectQuizList);
+
+    await deviceDB.set('incorrectQuiz', JSON.stringify(accIncorrectQuizList));
+
     navigation.goBack();
   };
 
