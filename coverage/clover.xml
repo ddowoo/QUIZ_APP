@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1709192439726" clover="3.2.0">
-  <project timestamp="1709192439726" name="All files">
-    <metrics statements="38" coveredstatements="35" conditionals="10" coveredconditionals="9" methods="12" coveredmethods="10" elements="60" coveredelements="54" complexity="0" loc="38" ncloc="38" packages="4" files="6" classes="6"/>
+<coverage generated="1709216726158" clover="3.2.0">
+  <project timestamp="1709216726158" name="All files">
+    <metrics statements="35" coveredstatements="33" conditionals="10" coveredconditionals="9" methods="14" coveredmethods="12" elements="59" coveredelements="54" complexity="0" loc="35" ncloc="35" packages="4" files="6" classes="6"/>
     <package name="components.atoms.btn">
       <metrics statements="10" coveredstatements="10" conditionals="10" coveredconditionals="9" methods="2" coveredmethods="2"/>
       <file name="fullWidhthButton.tsx" path="/Users/ridify/Desktop/dev/quiz_app/src/components/atoms/btn/fullWidhthButton.tsx">
@@ -34,30 +34,27 @@
       </file>
     </package>
     <package name="components.screens.home">
-      <metrics statements="21" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="7"/>
+      <metrics statements="18" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="11" coveredmethods="9"/>
       <file name="index.tsx" path="/Users/ridify/Desktop/dev/quiz_app/src/components/screens/home/index.tsx">
-        <metrics statements="21" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="7"/>
+        <metrics statements="18" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="11" coveredmethods="9"/>
+        <line num="11" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
-        <line num="13" count="1" type="stmt"/>
-        <line num="15" count="1" type="stmt"/>
-        <line num="16" count="3" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="15" count="3" type="stmt"/>
         <line num="17" count="3" type="stmt"/>
-        <line num="19" count="3" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
         <line num="21" count="3" type="stmt"/>
         <line num="22" count="1" type="stmt"/>
         <line num="25" count="3" type="stmt"/>
-        <line num="26" count="1" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
         <line num="29" count="3" type="stmt"/>
         <line num="30" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="34" count="3" type="stmt"/>
-        <line num="35" count="0" type="stmt"/>
-        <line num="38" count="3" type="stmt"/>
-        <line num="44" count="9" type="stmt"/>
-        <line num="51" count="1" type="stmt"/>
-        <line num="59" count="9" type="stmt"/>
-        <line num="66" count="1" type="stmt"/>
-        <line num="85" count="1" type="stmt"/>
+        <line num="33" count="3" type="stmt"/>
+        <line num="40" count="9" type="stmt"/>
+        <line num="47" count="1" type="stmt"/>
+        <line num="55" count="9" type="stmt"/>
+        <line num="62" count="1" type="stmt"/>
+        <line num="88" count="1" type="stmt"/>
       </file>
     </package>
     <package name="recoil.quiz">
