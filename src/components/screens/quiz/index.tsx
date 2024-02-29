@@ -7,6 +7,9 @@ import {RootStackParams} from '../../../navigations/rootScreens';
 import Questions from './components/questions';
 import {useRecoilValue} from 'recoil';
 import {quizConfigState} from '../../../recoil/quiz/atom';
+import Loading from '../../loading';
+import ErrorBoundary from 'react-native-error-boundary';
+import Error from '../../error';
 
 type Props = StackScreenProps<RootStackParams, 'quiz'>;
 
@@ -29,10 +32,7 @@ const Quiz = ({navigation}: Props) => {
 
   return (
     <SafeBg>
-      <Suspense
-        fallback={
-          <Text style={{fontSize: 30, color: 'red'}}>가져오는중!</Text>
-        }>
+      <Suspense fallback={<Loading />}>
         <Questions
           isSolving={isSolving}
           nowSolvingIndex={nowSolvingIndex}

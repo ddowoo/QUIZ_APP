@@ -5,7 +5,7 @@ const defaultQuizConfigState: {
   level: QuizLevel;
 } = {
   count: 5,
-  level: 'medium',
+  level: 'easy',
 };
 
 export const quizConfigState = atom({

@@ -8,6 +8,7 @@ export const useQuiz = (count: QuizCount, level: QuizLevel) => {
     {
       staleTime: Infinity,
       suspense: true,
+      useErrorBoundary: true,
     },
   );
 

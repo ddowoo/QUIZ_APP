@@ -34,7 +34,7 @@ const Home = ({navigation}: Props) => {
     <SafeArea>
       <View style={styles.bg}>
         <View>
-          <Text style={styles.title}>문제수</Text>
+          <Text style={styles.configTitle}>문제수</Text>
           <View style={styles.selectBox}>
             {QUIZ_COUNT_LIST.map(count => {
               return (
@@ -49,7 +49,7 @@ const Home = ({navigation}: Props) => {
               );
             })}
           </View>
-          <Text style={styles.title}>난이도</Text>
+          <Text style={styles.configTitle}>난이도</Text>
           <View style={styles.selectBox}>
             {QUIZ_LEVEL_LIST.map(level => {
               return (
@@ -64,6 +64,16 @@ const Home = ({navigation}: Props) => {
               );
             })}
           </View>
+
+          <View style={styles.infoBox}>
+            <Text style={styles.infoText}>
+              * 문제수와 난이도를 선택 후 퀴즈풀기 버튼을 누르면 퀴즈가
+              시작됩니다.
+            </Text>
+            <Text style={styles.infoText}>
+              * 오답노트를 누르면 지금까지 틀린 문제를 모두 볼 수 있습니다.
+            </Text>
+          </View>
         </View>
         <View>
           <FullWidthButton
@@ -71,11 +81,12 @@ const Home = ({navigation}: Props) => {
             type="ghost"
             onPress={onPressIncorrectNote}
             mb={10}
+            testID="incorrect btn"
           />
           <FullWidthButton
             text="퀴즈풀기"
             onPress={onPressStartQuizBtn}
-            testID="start quiz"
+            testID="quiz btn"
           />
         </View>
       </View>
@@ -91,11 +102,19 @@ const styles = StyleSheet.create({
     padding: 20,
     justifyContent: 'space-between',
   },
-  title: {
+  configTitle: {
     fontSize: 14,
     fontWeight: '700',
     marginTop: 20,
     marginBottom: 10,
+  },
+  infoBox: {
+    marginTop: 10,
+  },
+  infoText: {
+    color: 'gray',
+    fontSize: 11,
+    marginVertical: 3,
   },
   selectBox: {
     flexDirection: 'row',

@@ -11,8 +11,6 @@ export const getQuestionListFetch = async (
   level: QuizLevel,
 ): Promise<QuestionItem[]> => {
   try {
-    console.log('퀴즈 가져오기');
-
     const params = {
       amount: count,
       difficulty: level,
@@ -33,6 +31,6 @@ export const getQuestionListFetch = async (
       };
     });
   } catch (error) {
-    throw error;
+    return Promise.reject(error);
   }
 };
