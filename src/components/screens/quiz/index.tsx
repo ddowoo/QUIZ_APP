@@ -41,6 +41,7 @@ const Quiz = ({navigation}: Props) => {
       </Suspense>
       {!isSolving && (
         <FullWidthButton
+          mb={20}
           onPress={onPressNextQuestion}
           text={isLast ? '결과 보기' : '다음 문항'}
         />
