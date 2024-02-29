@@ -7,15 +7,15 @@ import {
   View,
 } from 'react-native';
 import {useRecoilValue, useSetRecoilState} from 'recoil';
-import {
-  QuestionItem,
-  quizQuestionListState,
-} from '../../../../recoil/quiz/selector';
+
 import {Dispatch, SetStateAction, useEffect, useRef} from 'react';
 import {
   pickAnswerListState,
+  quizConfigState,
   raceSecondsState,
 } from '../../../../recoil/quiz/atom';
+import {useQuiz} from '../../../../hooks/queries/useQuiz';
+import {QuestionItem} from '../../../../api/quiz';
 
 const {width: screenWidth} = Dimensions.get('window');
 
@@ -26,7 +26,8 @@ type Props = {
 };
 
 const Questions = ({isSolving, nowSolvingIndex, setIsSolving}: Props) => {
-  const questionList = useRecoilValue(quizQuestionListState);
+  const {count, level} = useRecoilValue(quizConfigState);
+  const {data: questionList} = useQuiz(count, level);
 
   const flatListRef = useRef<FlatList>(null);
   const setPickAnswerList = useSetRecoilState(pickAnswerListState);

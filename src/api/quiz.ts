@@ -1,23 +1,37 @@
 import {quizAxios} from './axiosInstance';
 
-type GetQuizListReturn = Question[];
+function shuffle(array: string[]) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
+export type QuestionItem = Question & {optionList: string[]};
 
 export const getQuestionListFetch = async (
-  quizCount: QuizCount,
-  quizLevel: QuizLevel,
-): Promise<GetQuizListReturn> => {
+  count: QuizCount,
+  level: QuizLevel,
+): Promise<QuestionItem[]> => {
   try {
+    console.log('퀴즈 가져오기');
+
     const params = {
-      amount: quizCount,
-      difficulty: quizLevel,
+      amount: count,
+      difficulty: level,
       type: 'multiple',
     };
+
     const res = await quizAxios.get<{
       response_code: number;
-      results: GetQuizListReturn;
+      results: Question[];
     }>('', {params});
 
-    return res.data.results;
+    return res.data.results.map(question => {
+      const {correct_answer, incorrect_answers} = question;
+
+      return {
+        ...question,
+        optionList: shuffle([correct_answer, ...incorrect_answers]),
+      };
+    });
   } catch (error) {
     throw error;
   }

@@ -1,16 +1,16 @@
 import {atom} from 'recoil';
 
-const defaultPickConffigState: {
+const defaultQuizConfigState: {
   count: QuizCount;
-  quizLevel: QuizLevel;
+  level: QuizLevel;
 } = {
-  count: '5',
-  quizLevel: 'medium',
+  count: 5,
+  level: 'medium',
 };
 
-export const pickQuizConfigState = atom({
+export const quizConfigState = atom({
   key: 'quizConfig',
-  default: defaultPickConffigState,
+  default: defaultQuizConfigState,
 });
 
 export const pickAnswerListState = atom<string[]>({

@@ -6,12 +6,12 @@ import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParams} from '../../../navigations/rootScreens';
 import Questions from './components/questions';
 import {useRecoilValue} from 'recoil';
-import {pickQuizConfigState} from '../../../recoil/quiz/atom';
+import {quizConfigState} from '../../../recoil/quiz/atom';
 
 type Props = StackScreenProps<RootStackParams, 'quiz'>;
 
 const Quiz = ({navigation}: Props) => {
-  const {count} = useRecoilValue(pickQuizConfigState);
+  const {count} = useRecoilValue(quizConfigState);
 
   const [isSolving, setIsSolving] = useState(true);
   const [nowSolvingIndex, setNowSolvingIndex] = useState(0);

@@ -1,4 +1,4 @@
-type QuizCount = '5' | '10' | '15';
+type QuizCount = 5 | 10 | 15;
 type QuizLevel = 'easy' | 'medium' | 'hard';
 
 type Question = {

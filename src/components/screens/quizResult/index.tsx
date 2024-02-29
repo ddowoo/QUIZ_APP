@@ -7,36 +7,41 @@ import {FullWidthButton} from '../../atoms/btn';
 import {useRecoilValue, useResetRecoilState} from 'recoil';
 import {
   pickAnswerListState,
-  pickQuizConfigState,
+  quizConfigState,
   raceSecondsState,
 } from '../../../recoil/quiz/atom';
-import {
-  QuestionItem,
-  quizQuestionListState,
-} from '../../../recoil/quiz/selector';
+
 import {styles} from './style';
 import {deviceDB} from '../../../utils/deviceDB';
+import {useQuiz} from '../../../hooks/queries/useQuiz';
+import {QuestionItem} from '../../../api/quiz';
+import {useQueryClient} from 'react-query';
 
 const {width: screenWidth} = Dimensions.get('window');
 
 type Props = StackScreenProps<RootStackParams, 'quizResult'>;
 
 const QuizResult = ({navigation}: Props) => {
-  const {count} = useRecoilValue(pickQuizConfigState);
-  const quizQuestionList = useRecoilValue(quizQuestionListState);
+  const {count, level} = useRecoilValue(quizConfigState);
+
+  const {data: quizQuestionList} = useQuiz(count, level);
+
   const userPickAnswerList = useRecoilValue(pickAnswerListState);
   const raceSeconds = useRecoilValue(raceSecondsState);
 
   const resetUserPickAnswerList = useResetRecoilState(pickAnswerListState);
   const resetRaceSeconds = useResetRecoilState(raceSecondsState);
 
-  const correctCount = quizQuestionList.reduce((acc, question, idx) => {
-    if (question.correct_answer === userPickAnswerList[idx]) {
-      return acc + 1;
-    } else {
-      return acc;
-    }
-  }, 0);
+  const queryClient = useQueryClient();
+
+  const correctCount =
+    quizQuestionList?.reduce((acc, question, idx) => {
+      if (question.correct_answer === userPickAnswerList[idx]) {
+        return acc + 1;
+      } else {
+        return acc;
+      }
+    }, 0) ?? 0;
 
   const series = [correctCount, +count - correctCount];
   const sliceColor = ['#19C084', '#ef4f52'];
@@ -64,28 +69,23 @@ const QuizResult = ({navigation}: Props) => {
   };
 
   const onPressGoBack = async () => {
-    const dbIncorrectQuiz = await deviceDB.get('incorrectQuiz');
-    const accIncorrectQuizList: QuestionItem[] = dbIncorrectQuiz
-      ? JSON.parse(dbIncorrectQuiz)
-      : [];
+    if (quizQuestionList) {
+      const dbIncorrectQuiz = await deviceDB.get('incorrectQuiz');
+      const accIncorrectQuizList: QuestionItem[] = dbIncorrectQuiz
+        ? JSON.parse(dbIncorrectQuiz)
+        : [];
 
-    console.log('accIncorrectQuizList');
-    console.log(accIncorrectQuizList);
+      const nowIncorrectQuizList = quizQuestionList?.filter(
+        ({correct_answer}, index) => {
+          return correct_answer !== userPickAnswerList[index];
+        },
+      );
 
-    const nowIncorrectQuizList = quizQuestionList.filter(
-      ({correct_answer}, index) => {
-        return correct_answer !== userPickAnswerList[index];
-      },
-    );
-    console.log('nowIncorrectQuizList');
-    console.log(nowIncorrectQuizList);
-    accIncorrectQuizList.push(...nowIncorrectQuizList);
+      accIncorrectQuizList.push(...nowIncorrectQuizList);
 
-    console.log('acc');
-    console.log(accIncorrectQuizList);
-
-    await deviceDB.set('incorrectQuiz', JSON.stringify(accIncorrectQuizList));
-
+      await deviceDB.set('incorrectQuiz', JSON.stringify(accIncorrectQuizList));
+    }
+    queryClient.removeQueries('quiz');
     navigation.goBack();
   };
 
