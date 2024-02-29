@@ -329,6 +329,8 @@ PODS:
   - React-jsinspector (0.71.16)
   - React-logger (0.71.16):
     - glog
+  - react-native-restart (0.0.27):
+    - React-Core
   - react-native-safe-area-context (4.9.0):
     - React-Core
   - React-perflogger (0.71.16)
@@ -415,7 +417,7 @@ PODS:
     - React-jsi (= 0.71.16)
     - React-logger (= 0.71.16)
     - React-perflogger (= 0.71.16)
-  - RNCAsyncStorage (1.22.2):
+  - RNCAsyncStorage (1.22.3):
     - React-Core
   - RNGestureHandler (2.15.0):
     - RCT-Folly (= 2021.07.22.00)
@@ -476,6 +478,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
+  - react-native-restart (from `../node_modules/react-native-restart`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -555,6 +558,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   React-logger:
     :path: "../node_modules/react-native/ReactCommon/logger"
+  react-native-restart:
+    :path: "../node_modules/react-native-restart"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   React-perflogger:
@@ -628,6 +633,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 9b2a87f674f30da4706af52520e4860974cec149
   React-jsinspector: b3b341764ccda14f3659c00a9bc5b098b334db2b
   React-logger: dc96fadd2f7f6bc38efc3cfb5fef876d4e6290a2
+  react-native-restart: 7595693413fe3ca15893702f2c8306c62a708162
   react-native-safe-area-context: b97eb6f9e3b7f437806c2ce5983f479f8eb5de4b
   React-perflogger: c944b06edad34f5ecded0f29a6e66290a005d365
   React-RCTActionSheet: fa467f37777dacba2c72da4be7ae065da4482d7d
@@ -642,7 +648,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: 052dd488ba95f461a37c992b9e01bd4bcc59a7b6
   React-runtimeexecutor: b5abe02558421897cd9f73d4f4b6adb4bc297083
   ReactCommon: a1a263d94f02a0dc8442f341d5a11b3d7a9cd44d
-  RNCAsyncStorage: 014a78b2cc8cc107c9e92ee428dc0c1ac3223416
+  RNCAsyncStorage: 10591b9e0a91eaffee14e69b3721009759235125
   RNGestureHandler: 7909c50383a18f0cb10ce1db7262b9a6da504c03
   RNScreens: 3c5b9f4a9dcde752466854b6109b79c0e205dad3
   RNSVG: 3f65a03e0c61a8495dee92bf82545ed9041cbf3b
