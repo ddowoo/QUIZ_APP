@@ -1,11 +1,13 @@
 import SafeBg from '@/components/blocks/safeArea';
 import {FullWidthButton} from '@/components/atoms/btn';
-import {Suspense, lazy, useState} from 'react';
+import {Suspense, lazy, useEffect, useState} from 'react';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParams} from '@/navigations/rootScreens';
 import {useRecoilValue} from 'recoil';
 import {quizConfigState} from '@/recoil/quiz/atom';
 import Loading from '@/components/loading';
+import {Alert} from 'react-native';
+import {useQueryClient} from 'react-query';
 
 type Props = StackScreenProps<RootStackParams, 'quiz'>;
 const Questions = lazy(() => import('./components/questions'));
@@ -17,6 +19,32 @@ const Quiz = ({navigation}: Props) => {
   const [nowSolvingIndex, setNowSolvingIndex] = useState(0);
 
   const isLast = +count - 1 === nowSolvingIndex;
+
+  const queryClient = useQueryClient();
+
+  useEffect(
+    () =>
+      navigation.addListener('beforeRemove', e => {
+        e.preventDefault();
+
+        Alert.alert(
+          '메인화면으로 돌아가시겠습니까?',
+          '퀴즈 기록은 전부 지워집니다.',
+          [
+            {
+              text: '돌아가기',
+              style: 'destructive',
+              onPress: () => {
+                navigation.dispatch(e.data.action);
+                queryClient.removeQueries('quiz');
+              },
+            },
+            {text: '계속 풀기', style: 'cancel', onPress: () => {}},
+          ],
+        );
+      }),
+    [navigation],
+  );
 
   const onPressNextQuestion = () => {
     if (!isLast) {
