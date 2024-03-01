@@ -1,12 +1,12 @@
 import React, {ReactNode, Suspense, lazy} from 'react';
 import {render, renderHook, waitFor} from '@testing-library/react-native';
-import {QueryClient, QueryClientProvider} from 'react-query';
+import {QueryClientProvider} from 'react-query';
 import {useQuiz} from '@/hooks/queries/useQuiz';
 import ErrorBoundary from 'react-native-error-boundary';
 import Loading from '@/components/loading';
 import Error from '@/components/error';
+import {queryClient} from '../App';
 
-const queryClient = new QueryClient();
 const wrapper = ({children}: {children: ReactNode}) => {
   return (
     <ErrorBoundary FallbackComponent={Error}>
@@ -24,25 +24,25 @@ const Questions = lazy(
 );
 
 describe('useQuiz Query', () => {
-  //   it('useQuiz 호출 확인', async () => {
-  //     const {result} = renderHook(() => useQuiz(5, 'easy'), {wrapper});
-  //     console.log(result.current);
-  //     await waitFor(() => expect(result.current.isSuccess).toBe(true));
-  //   });
+  it('useQuiz 호출 확인', async () => {
+    const {result} = renderHook(() => useQuiz(5, 'easy'), {wrapper});
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
+    expect(result.current.data?.length).toEqual(5);
+  });
 
   it('Questions Component Render Check', async () => {
     const setIsSolving = jest.fn();
-    const {getAllByLabelText, debug} = render(
+    render(
       <ErrorBoundary FallbackComponent={Error}>
-        <QueryClientProvider client={queryClient}>
-          <Suspense fallback={<Loading />}>
+        <Suspense fallback={<Loading />}>
+          <QueryClientProvider client={queryClient}>
             <Questions
               isSolving={true}
               nowSolvingIndex={0}
               setIsSolving={setIsSolving}
             />
-          </Suspense>
-        </QueryClientProvider>
+          </QueryClientProvider>
+        </Suspense>
       </ErrorBoundary>,
     );
   });

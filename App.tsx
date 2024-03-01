@@ -5,7 +5,7 @@ import {QueryClient, QueryClientProvider} from 'react-query';
 import ErrorBoundary from 'react-native-error-boundary';
 import Error from '@/components/error';
 
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 const App = () => {
   return (

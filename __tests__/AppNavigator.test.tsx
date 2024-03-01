@@ -1,10 +1,8 @@
 /**
  * @format
  */
-import {render, fireEvent} from '@testing-library/react-native';
-
-import 'react-native';
-import React, {useEffect} from 'react';
+import {render} from '@testing-library/react-native';
+import React from 'react';
 
 // Note: test renderer must be required after react-native.
 import {RecoilRoot} from 'recoil';
