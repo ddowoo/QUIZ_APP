@@ -3,7 +3,7 @@ import RootScreens from './src/navigations/rootScreens';
 import {NavigationContainer} from '@react-navigation/native';
 import {QueryClient, QueryClientProvider} from 'react-query';
 import ErrorBoundary from 'react-native-error-boundary';
-import Error from './src/components/error';
+import Error from '@/components/error';
 
 const queryClient = new QueryClient();
 

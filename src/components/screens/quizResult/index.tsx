@@ -16,6 +16,7 @@ import {deviceDB} from '@/utils/deviceDB';
 import {useQuiz} from '@/hooks/queries/useQuiz';
 import {QuestionItem} from '@/api/quiz';
 import {useQueryClient} from 'react-query';
+import {commonStyle} from '@/constants/style';
 
 const {width: screenWidth} = Dimensions.get('window');
 
@@ -44,7 +45,7 @@ const QuizResult = ({navigation}: Props) => {
     }, 0) ?? 0;
 
   const series = [correctCount, +count - correctCount];
-  const sliceColor = ['#19C084', '#ef4f52'];
+  const sliceColor = [commonStyle.KEY_COLOR, commonStyle.SUB_COLOR];
   const legensdList = ['정답', '오답'];
 
   const summary = [

@@ -16,6 +16,7 @@ import {
 } from '@/recoil/quiz/atom';
 import {useQuiz} from '@/hooks/queries/useQuiz';
 import {QuestionItem} from '@/api/quiz';
+import {commonStyle} from '@/constants/style';
 
 const {width: screenWidth} = Dimensions.get('window');
 
@@ -80,6 +81,7 @@ const Questions = ({isSolving, nowSolvingIndex, setIsSolving}: Props) => {
             {optionList.map((option, index) => {
               return (
                 <Pressable
+                  accessibilityLabel="option btn"
                   disabled={!isSolving}
                   onPress={() => onPressOption(option)}
                   style={styles.optionBtn}
@@ -127,9 +129,9 @@ const styles = StyleSheet.create({
   },
 
   correct: {
-    color: '#19C084',
+    color: commonStyle.KEY_COLOR,
   },
   incorrect: {
-    color: '#ef4f52',
+    color: commonStyle.SUB_COLOR,
   },
 });

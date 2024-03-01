@@ -1,14 +1,14 @@
 import SafeBg from '@/components/blocks/safeArea';
 import {FullWidthButton} from '@/components/atoms/btn';
-import {Suspense, useState} from 'react';
+import {Suspense, lazy, useState} from 'react';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParams} from '@/navigations/rootScreens';
-import Questions from './components/questions';
 import {useRecoilValue} from 'recoil';
 import {quizConfigState} from '@/recoil/quiz/atom';
 import Loading from '@/components/loading';
 
 type Props = StackScreenProps<RootStackParams, 'quiz'>;
+const Questions = lazy(() => import('./components/questions'));
 
 const Quiz = ({navigation}: Props) => {
   const {count} = useRecoilValue(quizConfigState);

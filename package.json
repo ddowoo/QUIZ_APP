@@ -49,7 +49,7 @@
   "jest": {
     "preset": "react-native",
     "transformIgnorePatterns": [
-      "<rootDir>/node_modules/(?!(@react-native|react-native|recoil)/)"
+      "<rootDir>/node_modules/(?!(@react-native|react-native|recoil|react-native-error-boundary|react-native-pie-chart)/)"
     ],
     "setupFiles": [
       "<rootDir>/jest.setup.js"
