@@ -1,8 +1,5 @@
-import {
-  StyleSheet,
-  TouchableOpacity,
-  TouchableOpacityProps,
-} from 'react-native';
+import {commonStyle} from '@/constants/style';
+import {StyleSheet, TouchableOpacity, TouchableOpacityProps} from 'react-native';
 import {RadioButton, Text} from 'react-native-paper';
 
 type Props = {
@@ -13,19 +10,12 @@ type Props = {
   onPress: () => void;
 } & TouchableOpacityProps;
 
-const RowRadioButton = ({
-  textPos = 'right',
-  value,
-  text,
-  isChecked,
-  onPress,
-  ...props
-}: Props) => {
+const RowRadioButton = ({textPos = 'right', value, text, isChecked, onPress, ...props}: Props) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.rowBtnBox} {...props}>
       {textPos === 'left' && <Text>{text}</Text>}
       <RadioButton.Android
-        color="#19C084"
+        color={commonStyle.KEY_COLOR}
         onPress={onPress}
         status={isChecked ? 'checked' : 'unchecked'}
         value={value}

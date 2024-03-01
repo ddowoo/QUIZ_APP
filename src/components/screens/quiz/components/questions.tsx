@@ -1,19 +1,8 @@
-import {
-  Dimensions,
-  FlatList,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {Dimensions, FlatList, Pressable, StyleSheet, Text, View} from 'react-native';
 import {useRecoilValue, useSetRecoilState} from 'recoil';
 
 import {Dispatch, SetStateAction, useEffect, useRef} from 'react';
-import {
-  pickAnswerListState,
-  quizConfigState,
-  raceSecondsState,
-} from '@/recoil/quiz/atom';
+import {pickAnswerListState, quizConfigState, raceSecondsState} from '@/recoil/quiz/atom';
 import {useQuiz} from '@/hooks/queries/useQuiz';
 import {QuestionItem} from '@/api/quiz';
 import {commonStyle} from '@/constants/style';
@@ -75,9 +64,7 @@ const Questions = ({isSolving, nowSolvingIndex, setIsSolving}: Props) => {
       }) => {
         return (
           <View style={styles.questionPage}>
-            <Text style={styles.question}>
-              {`${questionIdx + 1}. ${question}`}
-            </Text>
+            <Text style={styles.question}>{`${questionIdx + 1}. ${question}`}</Text>
             {optionList.map((option, index) => {
               return (
                 <Pressable
@@ -91,12 +78,7 @@ const Questions = ({isSolving, nowSolvingIndex, setIsSolving}: Props) => {
                       {index + 1}. {option}
                     </Text>
                   ) : (
-                    <Text
-                      style={
-                        option === correct_answer
-                          ? styles.correct
-                          : styles.incorrect
-                      }>
+                    <Text style={option === correct_answer ? styles.correct : styles.incorrect}>
                       {index + 1}. {option}
                     </Text>
                   )}

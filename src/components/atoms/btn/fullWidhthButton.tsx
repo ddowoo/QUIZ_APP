@@ -1,3 +1,4 @@
+import {commonStyle} from '@/constants/style';
 import {
   Dimensions,
   StyleSheet,
@@ -8,9 +9,6 @@ import {
   TextStyle,
 } from 'react-native';
 
-const {width: screenWidth} = Dimensions.get('screen');
-const KEY_COLOR = '#19C084';
-
 type BtnType = 'solid' | 'ghost' | 'disabled';
 
 type Props = {
@@ -20,13 +18,7 @@ type Props = {
   mb?: number;
 } & TouchableOpacityProps;
 
-const FullWidthButton = ({
-  text,
-  type = 'solid',
-  mt = 0,
-  mb = 0,
-  ...props
-}: Props) => {
+const FullWidthButton = ({text, type = 'solid', mt = 0, mb = 0, ...props}: Props) => {
   return (
     <TouchableOpacity
       style={[
@@ -49,11 +41,11 @@ type ButtonStyleByType = Record<BtnType, ViewStyle>;
 
 const buttonStyleByType: ButtonStyleByType = {
   solid: {
-    backgroundColor: KEY_COLOR,
+    backgroundColor: commonStyle.KEY_COLOR,
   },
   ghost: {
-    backgroundColor: '#fff',
-    borderColor: KEY_COLOR,
+    backgroundColor: commonStyle.WHITE,
+    borderColor: commonStyle.KEY_COLOR,
   },
   disabled: {
     backgroundColor: 'gray',
@@ -63,21 +55,21 @@ const buttonStyleByType: ButtonStyleByType = {
 type TextStyleByType = Record<BtnType, TextStyle>;
 
 const textStyleByType: TextStyleByType = {
-  solid: {color: '#fff'},
-  ghost: {color: KEY_COLOR},
+  solid: {color: commonStyle.WHITE},
+  ghost: {color: commonStyle.KEY_COLOR},
   disabled: {color: '#fff'},
 };
 
 const styles = StyleSheet.create({
   btn: {
-    width: screenWidth - 40,
+    width: commonStyle.SCREEN_WIDTH - 40,
     height: 40,
     borderRadius: 10,
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: KEY_COLOR,
+    borderColor: commonStyle.KEY_COLOR,
   },
   text: {
     fontWeight: '700',

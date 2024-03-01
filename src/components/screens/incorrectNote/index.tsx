@@ -53,35 +53,20 @@ const IncorrectNote = ({}: Props) => {
         testID={'total incorrect list'}
         data={questionList}
         ListEmptyComponent={<ListEmptyComponent />}
-        renderItem={({
-          item: {optionList, question, correct_answer},
-          index: questionIdx,
-        }) => {
+        renderItem={({item: {optionList, question, correct_answer}, index: questionIdx}) => {
           return (
             <View style={styles.questionPage}>
-              <Text style={styles.question}>
-                {`${questionIdx + 1}. ${question}`}
-              </Text>
+              <Text style={styles.question}>{`${questionIdx + 1}. ${question}`}</Text>
               {optionList.map((option, index) => {
                 return (
-                  <Pressable
-                    disabled
-                    style={styles.optionBtn}
-                    key={`${question}_${option}`}>
-                    <Text
-                      style={
-                        option === correct_answer
-                          ? styles.correct
-                          : styles.incorrect
-                      }>
+                  <Pressable disabled style={styles.optionBtn} key={`${question}_${option}`}>
+                    <Text style={option === correct_answer ? styles.correct : styles.incorrect}>
                       {index + 1}. {option}
                     </Text>
                   </Pressable>
                 );
               })}
-              <TouchableOpacity
-                onPress={() => onPressDel(questionIdx)}
-                style={styles.delBtn}>
+              <TouchableOpacity onPress={() => onPressDel(questionIdx)} style={styles.delBtn}>
                 <Text style={styles.delText}>제거</Text>
               </TouchableOpacity>
             </View>

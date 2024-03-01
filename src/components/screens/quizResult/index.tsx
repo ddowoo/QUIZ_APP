@@ -5,11 +5,7 @@ import {RootStackParams} from '@/navigations/rootScreens';
 import PieChart from 'react-native-pie-chart';
 import {FullWidthButton} from '@/components/atoms/btn';
 import {useRecoilValue, useResetRecoilState} from 'recoil';
-import {
-  pickAnswerListState,
-  quizConfigState,
-  raceSecondsState,
-} from '@/recoil/quiz/atom';
+import {pickAnswerListState, quizConfigState, raceSecondsState} from '@/recoil/quiz/atom';
 
 import {styles} from './style';
 import {deviceDB} from '@/utils/deviceDB';
@@ -72,15 +68,11 @@ const QuizResult = ({navigation}: Props) => {
   const onPressGoBack = async () => {
     if (quizQuestionList) {
       const dbIncorrectQuiz = await deviceDB.get('incorrectQuiz');
-      const accIncorrectQuizList: QuestionItem[] = dbIncorrectQuiz
-        ? JSON.parse(dbIncorrectQuiz)
-        : [];
+      const accIncorrectQuizList: QuestionItem[] = dbIncorrectQuiz ? JSON.parse(dbIncorrectQuiz) : [];
 
-      const nowIncorrectQuizList = quizQuestionList?.filter(
-        ({correct_answer}, index) => {
-          return correct_answer !== userPickAnswerList[index];
-        },
-      );
+      const nowIncorrectQuizList = quizQuestionList?.filter(({correct_answer}, index) => {
+        return correct_answer !== userPickAnswerList[index];
+      });
 
       accIncorrectQuizList.push(...nowIncorrectQuizList);
 
@@ -102,19 +94,14 @@ const QuizResult = ({navigation}: Props) => {
               series={series}
               sliceColor={sliceColor}
               coverRadius={0.45}
-              coverFill={'#FFF'}
+              coverFill={commonStyle.WHITE}
             />
             <View style={styles.legendBox}>
               {legensdList.map((legend, index) => {
                 return (
                   <View key={legend} style={styles.rowBox}>
                     <Text style={styles.legendText}>{legend}</Text>
-                    <View
-                      style={[
-                        styles.legendColorBox,
-                        {backgroundColor: sliceColor[index]},
-                      ]}
-                    />
+                    <View style={[styles.legendColorBox, {backgroundColor: sliceColor[index]}]} />
                   </View>
                 );
               })}
@@ -134,12 +121,7 @@ const QuizResult = ({navigation}: Props) => {
         </View>
 
         <View>
-          <FullWidthButton
-            onPress={onPressGoBack}
-            text="돌아 가기"
-            mb={10}
-            type="ghost"
-          />
+          <FullWidthButton onPress={onPressGoBack} text="돌아 가기" mb={10} type="ghost" />
           <FullWidthButton text="다시 풀기" onPress={onPressRetry} />
         </View>
       </View>

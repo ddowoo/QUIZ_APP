@@ -6,7 +6,7 @@ import {RootStackParams} from '@/navigations/rootScreens';
 import {useRecoilValue} from 'recoil';
 import {quizConfigState} from '@/recoil/quiz/atom';
 import Loading from '@/components/loading';
-import {Alert} from 'react-native';
+import {Alert, Platform} from 'react-native';
 import {useQueryClient} from 'react-query';
 
 type Props = StackScreenProps<RootStackParams, 'quiz'>;
@@ -25,12 +25,18 @@ const Quiz = ({navigation}: Props) => {
   useEffect(
     () =>
       navigation.addListener('beforeRemove', e => {
-        e.preventDefault();
+        const {
+          data: {
+            action: {type},
+          },
+        } = e;
 
-        Alert.alert(
-          '메인화면으로 돌아가시겠습니까?',
-          '퀴즈 기록은 전부 지워집니다.',
-          [
+        //   POP => IOS 슬라이드 뒤로가기
+        //  GO_BACK => AOS 뒤로가기 버튼
+        if (type === 'POP' || type === 'GO_BACK') {
+          e.preventDefault();
+
+          Alert.alert('메인화면으로 돌아가시겠습니까?', '퀴즈 기록은 전부 지워집니다.', [
             {
               text: '돌아가기',
               style: 'destructive',
@@ -40,10 +46,10 @@ const Quiz = ({navigation}: Props) => {
               },
             },
             {text: '계속 풀기', style: 'cancel', onPress: () => {}},
-          ],
-        );
+          ]);
+        }
       }),
-    [navigation],
+    [navigation, queryClient],
   );
 
   const onPressNextQuestion = () => {
@@ -58,18 +64,10 @@ const Quiz = ({navigation}: Props) => {
   return (
     <SafeBg>
       <Suspense fallback={<Loading />}>
-        <Questions
-          isSolving={isSolving}
-          nowSolvingIndex={nowSolvingIndex}
-          setIsSolving={setIsSolving}
-        />
+        <Questions isSolving={isSolving} nowSolvingIndex={nowSolvingIndex} setIsSolving={setIsSolving} />
       </Suspense>
       {!isSolving && (
-        <FullWidthButton
-          mb={20}
-          onPress={onPressNextQuestion}
-          text={isLast ? '결과 보기' : '다음 문항'}
-        />
+        <FullWidthButton mb={20} onPress={onPressNextQuestion} text={isLast ? '결과 보기' : '다음 문항'} />
       )}
     </SafeBg>
   );

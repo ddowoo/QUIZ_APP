@@ -6,10 +6,12 @@ function shuffle(array: string[]) {
 
 export type QuestionItem = Question & {optionList: string[]};
 
-export const getQuestionListFetch = async (
-  count: QuizCount,
-  level: QuizLevel,
-): Promise<QuestionItem[]> => {
+type OpenDbReturn = {
+  response_code: number;
+  results: Question[];
+};
+
+export const getQuestionListFetch = async (count: QuizCount, level: QuizLevel): Promise<QuestionItem[]> => {
   try {
     const params = {
       amount: count,
@@ -17,12 +19,9 @@ export const getQuestionListFetch = async (
       type: 'multiple',
     };
 
-    const res = await quizAxios.get<{
-      response_code: number;
-      results: Question[];
-    }>('', {params});
+    const res = await quizAxios.get<OpenDbReturn>('', {params});
 
-    if (res.data.results.length === count) {
+    if (res.data.response_code === 0) {
       return res.data.results.map(question => {
         const {correct_answer, incorrect_answers} = question;
 

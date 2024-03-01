@@ -67,13 +67,8 @@ const Home = ({navigation}: Props) => {
           </View>
 
           <View style={styles.infoBox}>
-            <Text style={styles.infoText}>
-              * 문제수와 난이도를 선택 후 퀴즈풀기 버튼을 누르면 퀴즈가
-              시작됩니다.
-            </Text>
-            <Text style={styles.infoText}>
-              * 오답노트를 누르면 지금까지 틀린 문제를 모두 볼 수 있습니다.
-            </Text>
+            <Text style={styles.infoText}>* 문제수와 난이도를 선택 후 퀴즈풀기 버튼을 누르면 퀴즈가 시작됩니다.</Text>
+            <Text style={styles.infoText}>* 오답노트를 누르면 지금까지 틀린 문제를 모두 볼 수 있습니다.</Text>
           </View>
         </View>
         <View>
@@ -84,11 +79,7 @@ const Home = ({navigation}: Props) => {
             mb={10}
             testID="navigate incorrect note btn"
           />
-          <FullWidthButton
-            text="퀴즈풀기"
-            onPress={onPressStartQuizBtn}
-            testID="quiz btn"
-          />
+          <FullWidthButton text="퀴즈풀기" onPress={onPressStartQuizBtn} testID="quiz btn" />
         </View>
       </View>
     </SafeArea>

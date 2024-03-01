@@ -11,16 +11,13 @@ export const TestStack = createStackNavigator<RootStackParams>();
 /**
  * @description Recoil, React-Navigation 셋팅 하기, 내부 요소 형식 example 참고 / TestStack Import 해서 사용
  * @example <TestStack.Screen name="home" component={Home} />
- *
  */
 export const wrapStackScreen = ({children}: {children?: ReactNode}) => {
   return (
     <QueryClientProvider client={queryClient}>
       <RecoilRoot>
         <NavigationContainer>
-          <TestStack.Navigator screenOptions={{headerShown: false}}>
-            {children}
-          </TestStack.Navigator>
+          <TestStack.Navigator screenOptions={{headerShown: false}}>{children}</TestStack.Navigator>
         </NavigationContainer>
       </RecoilRoot>
     </QueryClientProvider>
