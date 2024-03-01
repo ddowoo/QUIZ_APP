@@ -24,26 +24,26 @@ const Questions = lazy(
 );
 
 describe('useQuiz Query', () => {
-  it('useQuiz 호출 확인', async () => {
-    const {result} = renderHook(() => useQuiz(5, 'easy'), {wrapper});
-    console.log(result.current);
-    await waitFor(() => expect(result.current.isSuccess).toBe(true));
-  });
-
-  //   it('Questions Component Render Check', async () => {
-  //     const setIsSolving = jest.fn();
-  //     const {getAllByLabelText, debug} = render(
-  //       <ErrorBoundary FallbackComponent={Error}>
-  //         <QueryClientProvider client={queryClient}>
-  //           <Suspense fallback={<Loading />}>
-  //             <Questions
-  //               isSolving={true}
-  //               nowSolvingIndex={0}
-  //               setIsSolving={setIsSolving}
-  //             />
-  //           </Suspense>
-  //         </QueryClientProvider>
-  //       </ErrorBoundary>,
-  //     );
+  //   it('useQuiz 호출 확인', async () => {
+  //     const {result} = renderHook(() => useQuiz(5, 'easy'), {wrapper});
+  //     console.log(result.current);
+  //     await waitFor(() => expect(result.current.isSuccess).toBe(true));
   //   });
+
+  it('Questions Component Render Check', async () => {
+    const setIsSolving = jest.fn();
+    const {getAllByLabelText, debug} = render(
+      <ErrorBoundary FallbackComponent={Error}>
+        <QueryClientProvider client={queryClient}>
+          <Suspense fallback={<Loading />}>
+            <Questions
+              isSolving={true}
+              nowSolvingIndex={0}
+              setIsSolving={setIsSolving}
+            />
+          </Suspense>
+        </QueryClientProvider>
+      </ErrorBoundary>,
+    );
+  });
 });

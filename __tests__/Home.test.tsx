@@ -10,8 +10,17 @@ import React, {useEffect} from 'react';
 import Home from '../src/components/screens/home';
 import {RecoilRoot, RecoilState, useRecoilValue} from 'recoil';
 import {quizConfigState} from '@/recoil/quiz/atom';
-import {RootStackParams} from '@/navigations/rootScreens';
-import {StackNavigationProp} from '@react-navigation/stack';
+import RootScreens, {RootStackParams} from '@/navigations/rootScreens';
+import {
+  StackNavigationProp,
+  createStackNavigator,
+} from '@react-navigation/stack';
+import {NavigationContainer} from '@react-navigation/native';
+import IncorrectNote from '@/components/screens/incorrectNote';
+import {act} from 'react-test-renderer';
+import '@testing-library/jest-native/extend-expect';
+
+jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
 
 const RecoilObserver = ({
   states,
@@ -28,33 +37,19 @@ const RecoilObserver = ({
   return null;
 };
 
-const navigation: StackNavigationProp<RootStackParams, 'home'> = {
-  goBack: jest.fn(),
-  getId: jest.fn(),
-  removeListener: jest.fn(),
-  addListener: jest.fn(),
-  replace: jest.fn(),
-  reset: jest.fn(),
-  isFocused: jest.fn(),
-  setOptions: jest.fn(),
-  setParams: jest.fn(),
-  canGoBack: jest.fn(),
-  navigate: jest.fn(),
-  getParent: jest.fn(),
-  getState: jest.fn(),
-  dispatch: jest.fn(),
-  push: jest.fn(),
-  pop: jest.fn(),
-  popToTop: jest.fn(),
-};
+const Stack = createStackNavigator<RootStackParams>();
 
 describe('Home Component Test', () => {
-  it('quiz config change btn', () => {
+  it('quiz config btn', () => {
     const onChange = jest.fn();
     const {getAllByLabelText} = render(
       <RecoilRoot>
-        <RecoilObserver states={quizConfigState} onChange={onChange} />
-        <Home navigation={navigation} route={{key: '', name: 'home'}} />
+        <NavigationContainer>
+          <RecoilObserver states={quizConfigState} onChange={onChange} />
+          <Stack.Navigator screenOptions={{headerShown: false}}>
+            <Stack.Screen name="home" component={Home} />
+          </Stack.Navigator>
+        </NavigationContainer>
       </RecoilRoot>,
     );
 
@@ -66,5 +61,26 @@ describe('Home Component Test', () => {
 
     expect(onChange).toHaveBeenCalledTimes(3);
     expect(onChange).toHaveBeenCalledWith({count: 10, level: 'easy'});
+  });
+
+  it('navigate btn', async () => {
+    const {getByTestId} = render(
+      <RecoilRoot>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{headerShown: false}}>
+            <Stack.Screen name="home" component={Home} />
+            <Stack.Screen name="incorrectNote" component={IncorrectNote} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </RecoilRoot>,
+    );
+
+    const navigateIncorrectNoteBtn = getByTestId('navigate incorrect note btn');
+
+    await act(() => fireEvent(navigateIncorrectNoteBtn, 'press'));
+
+    const totalIncorrectList = getByTestId('total incorrect list');
+
+    expect(totalIncorrectList).toBeOnTheScreen();
   });
 });

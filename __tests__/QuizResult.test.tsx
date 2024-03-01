@@ -23,21 +23,16 @@ const navigation: StackNavigationProp<RootStackParams, 'quizResult'> = {
   pop: jest.fn(),
   popToTop: jest.fn(),
 };
-/**
- * QuizResult 컴포넌트 내부 react-native-pie-chart SyntaxError: Unexpected token 'export' 에러
- * 시도 조치
- * transformIgnorePatterns 추가
- * jest.setup.js
- */
+
 describe('Home Component Test', () => {
   it('quiz config change btn', () => {
-    // const {getAllByLabelText} = render(
-    //   <RecoilRoot>
-    //     <QuizResult
-    //       navigation={navigation}
-    //       route={{key: '', name: 'quizResult'}}
-    //     />
-    //   </RecoilRoot>,
-    // );
+    const {getAllByLabelText} = render(
+      <RecoilRoot>
+        <QuizResult
+          navigation={navigation}
+          route={{key: '', name: 'quizResult'}}
+        />
+      </RecoilRoot>,
+    );
   });
 });

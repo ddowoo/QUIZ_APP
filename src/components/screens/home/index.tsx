@@ -82,7 +82,7 @@ const Home = ({navigation}: Props) => {
             type="ghost"
             onPress={onPressIncorrectNote}
             mb={10}
-            testID="incorrect btn"
+            testID="navigate incorrect note btn"
           />
           <FullWidthButton
             text="퀴즈풀기"

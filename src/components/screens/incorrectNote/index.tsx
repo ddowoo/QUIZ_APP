@@ -5,6 +5,8 @@ import SafeArea from '@/components/blocks/safeArea';
 import {useNavigation} from '@react-navigation/native';
 import {QuestionItem} from '@/api/quiz';
 import {styles} from './style';
+import {RootStackParams} from '@/navigations/rootScreens';
+import {StackScreenProps} from '@react-navigation/stack';
 
 const ListEmptyComponent = () => {
   const {goBack} = useNavigation();
@@ -18,7 +20,9 @@ const ListEmptyComponent = () => {
   );
 };
 
-const IncorrectNote = () => {
+type Props = StackScreenProps<RootStackParams, 'incorrectNote'>;
+
+const IncorrectNote = ({}: Props) => {
   const [questionList, setQuestionList] = useState<null | QuestionItem[]>(null);
 
   useEffect(() => {
@@ -46,6 +50,7 @@ const IncorrectNote = () => {
   return (
     <SafeArea>
       <FlatList
+        testID={'total incorrect list'}
         data={questionList}
         ListEmptyComponent={<ListEmptyComponent />}
         renderItem={({
