@@ -19,39 +19,28 @@ import {NavigationContainer} from '@react-navigation/native';
 import IncorrectNote from '@/components/screens/incorrectNote';
 import {act} from 'react-test-renderer';
 import '@testing-library/jest-native/extend-expect';
+import {RecoilObserver, stackScreenWrapper} from './utils';
 
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
-
-const RecoilObserver = ({
-  states,
-  onChange,
-}: {
-  states: RecoilState<{
-    count: QuizCount;
-    level: QuizLevel;
-  }>;
-  onChange: jest.Mock;
-}) => {
-  const value = useRecoilValue(states);
-  useEffect(() => onChange(value), [onChange, value]);
-  return null;
-};
 
 const Stack = createStackNavigator<RootStackParams>();
 
 describe('Home Component Test', () => {
   it('quiz config btn', () => {
     const onChange = jest.fn();
-    const {getAllByLabelText} = render(
-      <RecoilRoot>
-        <NavigationContainer>
-          <RecoilObserver states={quizConfigState} onChange={onChange} />
-          <Stack.Navigator screenOptions={{headerShown: false}}>
-            <Stack.Screen name="home" component={Home} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </RecoilRoot>,
+
+    const children = (
+      <Stack.Screen name="home">
+        {props => (
+          <>
+            <RecoilObserver onChange={onChange} states={quizConfigState} />
+            <Home {...props} />
+          </>
+        )}
+      </Stack.Screen>
     );
+
+    const {getAllByLabelText} = render(stackScreenWrapper({children}));
 
     const countBntList = getAllByLabelText('count btn');
     const levelBtnList = getAllByLabelText('level btn');
@@ -64,23 +53,19 @@ describe('Home Component Test', () => {
   });
 
   it('navigate btn', async () => {
-    const {getByTestId} = render(
-      <RecoilRoot>
-        <NavigationContainer>
-          <Stack.Navigator screenOptions={{headerShown: false}}>
-            <Stack.Screen name="home" component={Home} />
-            <Stack.Screen name="incorrectNote" component={IncorrectNote} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </RecoilRoot>,
+    const children = (
+      <>
+        <Stack.Screen name="home" component={Home} />
+        <Stack.Screen name="incorrectNote" component={IncorrectNote} />
+      </>
     );
 
-    const navigateIncorrectNoteBtn = getByTestId('navigate incorrect note btn');
+    const {getByTestId} = render(stackScreenWrapper({children}));
 
+    const navigateIncorrectNoteBtn = getByTestId('navigate incorrect note btn');
     await act(() => fireEvent(navigateIncorrectNoteBtn, 'press'));
 
     const totalIncorrectList = getByTestId('total incorrect list');
-
     expect(totalIncorrectList).toBeOnTheScreen();
   });
 });
