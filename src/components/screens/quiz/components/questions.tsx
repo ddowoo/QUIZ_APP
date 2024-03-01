@@ -1,5 +1,5 @@
 import {Dimensions, FlatList, Pressable, StyleSheet, Text, View} from 'react-native';
-import {useRecoilValue, useSetRecoilState} from 'recoil';
+import {useRecoilState, useRecoilValue, useSetRecoilState} from 'recoil';
 
 import {Dispatch, SetStateAction, useEffect, useRef} from 'react';
 import {pickAnswerListState, quizConfigState, raceSecondsState} from '@/recoil/quiz/atom';
@@ -20,7 +20,7 @@ const Questions = ({isSolving, nowSolvingIndex, setIsSolving}: Props) => {
   const {data: questionList} = useQuiz(count, level);
 
   const flatListRef = useRef<FlatList>(null);
-  const setPickAnswerList = useSetRecoilState(pickAnswerListState);
+  const [pickAnswerList, setPickAnswerList] = useRecoilState(pickAnswerListState);
   const setRaceTime = useSetRecoilState(raceSecondsState);
 
   useEffect(() => {
@@ -31,7 +31,9 @@ const Questions = ({isSolving, nowSolvingIndex, setIsSolving}: Props) => {
       const raceTime = Math.round((endTime - startTime) / 1000);
       setRaceTime(raceTime);
     };
-  }, [setRaceTime]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     function moveNowQuestion(nowIndex: number) {
@@ -44,7 +46,8 @@ const Questions = ({isSolving, nowSolvingIndex, setIsSolving}: Props) => {
   }, [nowSolvingIndex]);
 
   const onPressOption = (pickOption: string) => {
-    setPickAnswerList(prev => [...prev, pickOption]);
+    const _pickAnswerList = [...pickAnswerList, pickOption];
+    setPickAnswerList(_pickAnswerList);
     setIsSolving(false);
   };
 
@@ -107,7 +110,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   optionBtn: {
-    marginVertical: 5,
+    marginVertical: 8,
+    paddingVertical: 3,
   },
 
   correct: {

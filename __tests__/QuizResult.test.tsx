@@ -4,9 +4,7 @@ import {TestStack, wrapStackScreen} from '@/utils/testHelper';
 
 describe('Home Component Test', () => {
   it('quiz config change btn', () => {
-    const children = (
-      <TestStack.Screen component={QuizResult} name="quizResult" />
-    );
+    const children = <TestStack.Screen component={QuizResult} name="quizResult" />;
 
     render(wrapStackScreen({children}));
   });

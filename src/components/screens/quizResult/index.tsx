@@ -11,7 +11,6 @@ import {styles} from './style';
 import {deviceDB} from '@/utils/deviceDB';
 import {useQuiz} from '@/hooks/queries/useQuiz';
 import {QuestionItem} from '@/api/quiz';
-import {useQueryClient} from 'react-query';
 import {commonStyle} from '@/constants/style';
 
 const {width: screenWidth} = Dimensions.get('window');
@@ -23,17 +22,14 @@ const QuizResult = ({navigation}: Props) => {
 
   const {data: quizQuestionList} = useQuiz(count, level);
 
-  const userPickAnswerList = useRecoilValue(pickAnswerListState);
+  const pickAnswerList = useRecoilValue(pickAnswerListState);
   const raceSeconds = useRecoilValue(raceSecondsState);
 
-  const resetUserPickAnswerList = useResetRecoilState(pickAnswerListState);
   const resetRaceSeconds = useResetRecoilState(raceSecondsState);
-
-  const queryClient = useQueryClient();
 
   const correctCount =
     quizQuestionList?.reduce((acc, question, idx) => {
-      if (question.correct_answer === userPickAnswerList[idx]) {
+      if (question.correct_answer === pickAnswerList[idx]) {
         return acc + 1;
       } else {
         return acc;
@@ -61,7 +57,6 @@ const QuizResult = ({navigation}: Props) => {
 
   const onPressRetry = () => {
     navigation.replace('quiz');
-    resetUserPickAnswerList();
     resetRaceSeconds();
   };
 
@@ -71,14 +66,13 @@ const QuizResult = ({navigation}: Props) => {
       const accIncorrectQuizList: QuestionItem[] = dbIncorrectQuiz ? JSON.parse(dbIncorrectQuiz) : [];
 
       const nowIncorrectQuizList = quizQuestionList?.filter(({correct_answer}, index) => {
-        return correct_answer !== userPickAnswerList[index];
+        return correct_answer !== pickAnswerList[index];
       });
 
       accIncorrectQuizList.push(...nowIncorrectQuizList);
 
       await deviceDB.set('incorrectQuiz', JSON.stringify(accIncorrectQuizList));
     }
-    queryClient.removeQueries('quiz');
     navigation.goBack();
   };
 
@@ -121,7 +115,7 @@ const QuizResult = ({navigation}: Props) => {
         </View>
 
         <View>
-          <FullWidthButton onPress={onPressGoBack} text="돌아 가기" mb={10} type="ghost" />
+          <FullWidthButton onPress={onPressGoBack} text="돌아가기" mb={10} type="ghost" />
           <FullWidthButton text="다시 풀기" onPress={onPressRetry} />
         </View>
       </View>

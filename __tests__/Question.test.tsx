@@ -11,17 +11,13 @@ const wrapper = ({children}: {children: ReactNode}) => {
   return (
     <ErrorBoundary FallbackComponent={Error}>
       <Suspense fallback={<Loading />}>
-        <QueryClientProvider client={queryClient}>
-          {children}
-        </QueryClientProvider>
+        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
       </Suspense>
     </ErrorBoundary>
   );
 };
 
-const Questions = lazy(
-  () => import('@/components/screens/quiz/components/questions'),
-);
+const Questions = lazy(() => import('@/components/screens/quiz/components/questions'));
 
 describe('useQuiz Query', () => {
   it('useQuiz 호출 확인', async () => {
@@ -36,11 +32,7 @@ describe('useQuiz Query', () => {
       <ErrorBoundary FallbackComponent={Error}>
         <Suspense fallback={<Loading />}>
           <QueryClientProvider client={queryClient}>
-            <Questions
-              isSolving={true}
-              nowSolvingIndex={0}
-              setIsSolving={setIsSolving}
-            />
+            <Questions isSolving={true} nowSolvingIndex={0} setIsSolving={setIsSolving} />
           </QueryClientProvider>
         </Suspense>
       </ErrorBoundary>,

@@ -1,13 +1,5 @@
 import {commonStyle} from '@/constants/style';
-import {
-  Dimensions,
-  StyleSheet,
-  Text,
-  TouchableOpacityProps,
-  TouchableOpacity,
-  ViewStyle,
-  TextStyle,
-} from 'react-native';
+import {StyleSheet, Text, TouchableOpacityProps, TouchableOpacity, ViewStyle, TextStyle} from 'react-native';
 
 type BtnType = 'solid' | 'ghost' | 'disabled';
 
@@ -57,7 +49,7 @@ type TextStyleByType = Record<BtnType, TextStyle>;
 const textStyleByType: TextStyleByType = {
   solid: {color: commonStyle.WHITE},
   ghost: {color: commonStyle.KEY_COLOR},
-  disabled: {color: '#fff'},
+  disabled: {color: commonStyle.WHITE},
 };
 
 const styles = StyleSheet.create({

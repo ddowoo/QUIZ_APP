@@ -3,10 +3,10 @@ import {FullWidthButton} from '@/components/atoms/btn';
 import {Suspense, lazy, useEffect, useState} from 'react';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParams} from '@/navigations/rootScreens';
-import {useRecoilValue} from 'recoil';
-import {quizConfigState} from '@/recoil/quiz/atom';
+import {useRecoilValue, useResetRecoilState} from 'recoil';
+import {pickAnswerListState, quizConfigState, raceSecondsState} from '@/recoil/quiz/atom';
 import Loading from '@/components/loading';
-import {Alert, Platform} from 'react-native';
+import {Alert} from 'react-native';
 import {useQueryClient} from 'react-query';
 
 type Props = StackScreenProps<RootStackParams, 'quiz'>;
@@ -15,12 +15,22 @@ const Questions = lazy(() => import('./components/questions'));
 const Quiz = ({navigation}: Props) => {
   const {count} = useRecoilValue(quizConfigState);
 
+  const resetPickAnswerList = useResetRecoilState(pickAnswerListState);
+  const resetRaceSeconds = useResetRecoilState(raceSecondsState);
+
   const [isSolving, setIsSolving] = useState(true);
   const [nowSolvingIndex, setNowSolvingIndex] = useState(0);
 
   const isLast = +count - 1 === nowSolvingIndex;
 
   const queryClient = useQueryClient();
+
+  useEffect(() => {
+    resetRaceSeconds();
+    resetPickAnswerList();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(
     () =>
@@ -31,8 +41,6 @@ const Quiz = ({navigation}: Props) => {
           },
         } = e;
 
-        //   POP => IOS 슬라이드 뒤로가기
-        //  GO_BACK => AOS 뒤로가기 버튼
         if (type === 'POP' || type === 'GO_BACK') {
           e.preventDefault();
 
@@ -42,7 +50,6 @@ const Quiz = ({navigation}: Props) => {
               style: 'destructive',
               onPress: () => {
                 navigation.dispatch(e.data.action);
-                queryClient.removeQueries('quiz');
               },
             },
             {text: '계속 풀기', style: 'cancel', onPress: () => {}},

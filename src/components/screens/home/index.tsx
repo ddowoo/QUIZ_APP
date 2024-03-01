@@ -6,6 +6,8 @@ import {useRecoilState} from 'recoil';
 import {FullWidthButton, RowRadioButton} from '@/components/atoms/btn';
 import {quizConfigState} from '@/recoil/quiz/atom';
 import {styles} from './style';
+import {useFocusEffect} from '@react-navigation/native';
+import {useQueryClient} from 'react-query';
 
 type Props = StackScreenProps<RootStackParams, 'home'>;
 
@@ -14,6 +16,12 @@ const QUIZ_LEVEL_LIST: QuizLevel[] = ['easy', 'medium', 'hard'];
 
 const Home = ({navigation}: Props) => {
   const [quizConfig, setQuizConfig] = useRecoilState(quizConfigState);
+
+  const queryClient = useQueryClient();
+
+  useFocusEffect(() => {
+    queryClient.removeQueries('quiz');
+  });
 
   const onPressQuizCount = (count: QuizCount) => {
     setQuizConfig(prev => ({...prev, count}));
