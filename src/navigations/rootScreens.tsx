@@ -1,9 +1,9 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import Home from '../components/screens/home';
-import Quiz from '../components/screens/quiz';
-import QuizResult from '../components/screens/quizResult';
-import IncorrectNote from '../components/screens/incorrectNote';
+import Home from '@/components/screens/home';
+import Quiz from '@/components/screens/quiz';
+import QuizResult from '@/components/screens/quizResult';
+import IncorrectNote from '@/components/screens/incorrectNote';
 
 export type RootStackParams = {
   home: undefined;

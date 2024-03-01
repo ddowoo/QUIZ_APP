@@ -1,19 +1,10 @@
 import {useEffect, useState} from 'react';
-import {
-  Dimensions,
-  FlatList,
-  Pressable,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import {deviceDB} from '../../../utils/deviceDB';
-import SafeArea from '../../blocks/safeArea';
+import {FlatList, Pressable, Text, TouchableOpacity, View} from 'react-native';
+import {deviceDB} from '@/utils/deviceDB';
+import SafeArea from '@/components/blocks/safeArea';
 import {useNavigation} from '@react-navigation/native';
-import {QuestionItem} from '../../../api/quiz';
-
-const {width: screenWidth} = Dimensions.get('window');
+import {QuestionItem} from '@/api/quiz';
+import {styles} from './style';
 
 const ListEmptyComponent = () => {
   const {goBack} = useNavigation();
@@ -36,9 +27,9 @@ const IncorrectNote = () => {
 
   const getIncorrectQuestionList = async () => {
     const res = await deviceDB.get('incorrectQuiz');
-    const questionList: QuestionItem[] = res ? JSON.parse(res) : [];
+    const _questionList: QuestionItem[] = res ? JSON.parse(res) : [];
 
-    setQuestionList(questionList);
+    setQuestionList(_questionList);
   };
 
   const onPressDel = async (idx: number) => {
@@ -85,13 +76,8 @@ const IncorrectNote = () => {
               })}
               <TouchableOpacity
                 onPress={() => onPressDel(questionIdx)}
-                style={{
-                  backgroundColor: '#ef4f52',
-                  alignSelf: 'flex-end',
-                  padding: 8,
-                  borderRadius: 10,
-                }}>
-                <Text style={{color: '#fff'}}>제거</Text>
+                style={styles.delBtn}>
+                <Text style={styles.delText}>제거</Text>
               </TouchableOpacity>
             </View>
           );
@@ -102,48 +88,3 @@ const IncorrectNote = () => {
 };
 
 export default IncorrectNote;
-
-const styles = StyleSheet.create({
-  emptyBg: {
-    flex: 1,
-    paddingTop: 100,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  emptyText: {
-    color: 'gray',
-  },
-  questionPage: {
-    width: screenWidth,
-    padding: 20,
-    flex: 1,
-  },
-  question: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  optionBtn: {
-    marginVertical: 5,
-  },
-
-  correct: {
-    color: '#19C084',
-  },
-  incorrect: {
-    color: '#ef4f52',
-  },
-  goBackBtn: {
-    borderRadius: 10,
-    padding: 10,
-    backgroundColor: '#19C084',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  goBackText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-});

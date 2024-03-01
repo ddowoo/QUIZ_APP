@@ -13,9 +13,9 @@ import {
   pickAnswerListState,
   quizConfigState,
   raceSecondsState,
-} from '../../../../recoil/quiz/atom';
-import {useQuiz} from '../../../../hooks/queries/useQuiz';
-import {QuestionItem} from '../../../../api/quiz';
+} from '@/recoil/quiz/atom';
+import {useQuiz} from '@/hooks/queries/useQuiz';
+import {QuestionItem} from '@/api/quiz';
 
 const {width: screenWidth} = Dimensions.get('window');
 

@@ -1,10 +1,11 @@
-import {StyleSheet, Text, View} from 'react-native';
-import SafeArea from '../../blocks/safeArea';
+import {Text, View} from 'react-native';
+import SafeArea from '@/components/blocks/safeArea';
 import {StackScreenProps} from '@react-navigation/stack';
-import {RootStackParams} from '../../../navigations/rootScreens';
+import {RootStackParams} from '@/navigations/rootScreens';
 import {useRecoilState} from 'recoil';
-import {FullWidthButton, RowRadioButton} from '../../atoms/btn';
-import {quizConfigState} from '../../../recoil/quiz/atom';
+import {FullWidthButton, RowRadioButton} from '@/components/atoms/btn';
+import {quizConfigState} from '@/recoil/quiz/atom';
+import {styles} from './style';
 
 type Props = StackScreenProps<RootStackParams, 'home'>;
 
@@ -95,30 +96,3 @@ const Home = ({navigation}: Props) => {
 };
 
 export default Home;
-
-const styles = StyleSheet.create({
-  bg: {
-    flex: 1,
-    padding: 20,
-    justifyContent: 'space-between',
-  },
-  configTitle: {
-    fontSize: 14,
-    fontWeight: '700',
-    marginTop: 20,
-    marginBottom: 10,
-  },
-  infoBox: {
-    marginTop: 10,
-  },
-  infoText: {
-    color: 'gray',
-    fontSize: 11,
-    marginVertical: 3,
-  },
-  selectBox: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-  },
-});

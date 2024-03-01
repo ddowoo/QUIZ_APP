@@ -1,20 +1,20 @@
 import {Text, Dimensions, View} from 'react-native';
-import SafeArea from '../../blocks/safeArea';
+import SafeArea from '@/components/blocks/safeArea';
 import {StackScreenProps} from '@react-navigation/stack';
-import {RootStackParams} from '../../../navigations/rootScreens';
+import {RootStackParams} from '@/navigations/rootScreens';
 import PieChart from 'react-native-pie-chart';
-import {FullWidthButton} from '../../atoms/btn';
+import {FullWidthButton} from '@/components/atoms/btn';
 import {useRecoilValue, useResetRecoilState} from 'recoil';
 import {
   pickAnswerListState,
   quizConfigState,
   raceSecondsState,
-} from '../../../recoil/quiz/atom';
+} from '@/recoil/quiz/atom';
 
 import {styles} from './style';
-import {deviceDB} from '../../../utils/deviceDB';
-import {useQuiz} from '../../../hooks/queries/useQuiz';
-import {QuestionItem} from '../../../api/quiz';
+import {deviceDB} from '@/utils/deviceDB';
+import {useQuiz} from '@/hooks/queries/useQuiz';
+import {QuestionItem} from '@/api/quiz';
 import {useQueryClient} from 'react-query';
 
 const {width: screenWidth} = Dimensions.get('window');

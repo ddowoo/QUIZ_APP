@@ -1,23 +1,15 @@
 /**
  * @format
  */
-import {
-  render,
-  screen,
-  fireEvent,
-  waitFor,
-} from '@testing-library/react-native';
+import {render, fireEvent} from '@testing-library/react-native';
 
 import 'react-native';
 import React, {useEffect} from 'react';
 
 // Note: test renderer must be required after react-native.
 import Home from '../src/components/screens/home';
-import {useNavigation} from '@react-navigation/native';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {RootStackParams} from '../src/navigations/rootScreens';
 import {RecoilRoot, RecoilState, useRecoilValue} from 'recoil';
-import {quizConfigState} from '../src/recoil/quiz/atom';
+import {quizConfigState} from '@/recoil/quiz/atom';
 
 const RecoilObserver = ({
   states,
@@ -43,8 +35,8 @@ test('Home Component Test', () => {
     </RecoilRoot>,
   );
 
-  const countBntList = screen.getAllByLabelText('count btn');
-  const levelBtnList = screen.getAllByLabelText('level btn');
+  const countBntList = getAllByLabelText('count btn');
+  const levelBtnList = getAllByLabelText('level btn');
 
   fireEvent(countBntList[1], 'press');
   fireEvent(levelBtnList[0], 'press');

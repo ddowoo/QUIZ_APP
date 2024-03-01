@@ -1,5 +1,5 @@
 import {useQuery} from 'react-query';
-import {QuestionItem, getQuestionListFetch} from '../../api/quiz';
+import {getQuestionListFetch} from '../../api/quiz';
 
 export const useQuiz = (count: QuizCount, level: QuizLevel) => {
   const quizQuery = useQuery(

@@ -1,15 +1,12 @@
-import SafeBg from '../../blocks/safeArea';
-import {Text} from 'react-native';
-import {FullWidthButton} from '../../atoms/btn';
+import SafeBg from '@/components/blocks/safeArea';
+import {FullWidthButton} from '@/components/atoms/btn';
 import {Suspense, useState} from 'react';
 import {StackScreenProps} from '@react-navigation/stack';
-import {RootStackParams} from '../../../navigations/rootScreens';
+import {RootStackParams} from '@/navigations/rootScreens';
 import Questions from './components/questions';
 import {useRecoilValue} from 'recoil';
-import {quizConfigState} from '../../../recoil/quiz/atom';
-import Loading from '../../loading';
-import ErrorBoundary from 'react-native-error-boundary';
-import Error from '../../error';
+import {quizConfigState} from '@/recoil/quiz/atom';
+import Loading from '@/components/loading';
 
 type Props = StackScreenProps<RootStackParams, 'quiz'>;
 
